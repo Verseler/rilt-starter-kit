@@ -1,8 +1,8 @@
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { InputError } from "@/components/ui/input-error";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import GuestLayout from "@/layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
@@ -34,16 +34,14 @@ export default function LoginPage({
 
             <form onSubmit={submit} className="space-y-4">
                 <div>
-                    <Label htmlFor="email" className="ms-1">
-                        Email
-                    </Label>
+                    <Label className="ms-1">Email</Label>
 
                     <Input
                         id="email"
                         type="email"
                         name="email"
                         value={data.email}
-                        className="block w-full mt-1"
+                        className="block w-full mt-1 rounded-xl"
                         autoComplete="username"
                         onChange={(e) => setData("email", e.target.value)}
                         invalid={Boolean(errors.email)}
@@ -53,16 +51,14 @@ export default function LoginPage({
                 </div>
 
                 <div>
-                    <Label htmlFor="password" className="ms-1">
-                        Label
-                    </Label>
+                    <Label className="ms-1">Password</Label>
 
                     <Input
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="block w-full mt-1"
+                        className="block w-full mt-1 rounded-xl"
                         autoComplete="current-password"
                         onChange={(e) => setData("password", e.target.value)}
                         invalid={Boolean(errors.password)}

@@ -28,15 +28,13 @@ export default function RegisterPage() {
 
             <form onSubmit={submit} className="space-y-4">
                 <div>
-                    <Label htmlFor="name" className="ml-1">
-                        Name
-                    </Label>
+                    <Label className="ml-1">Name</Label>
 
                     <Input
                         id="name"
                         name="name"
                         value={data.name}
-                        className="block w-full mt-1"
+                        className="block w-full mt-1 rounded-xl"
                         autoComplete="name"
                         onChange={(e) => setData("name", e.target.value)}
                         invalid={Boolean(errors.name)}
@@ -47,16 +45,14 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="mt-4">
-                    <Label htmlFor="email" className="ml-1">
-                        Email
-                    </Label>
+                    <Label className="ml-1">Email</Label>
 
                     <Input
                         id="email"
                         type="email"
                         name="email"
                         value={data.email}
-                        className="block w-full mt-1"
+                        className="block w-full mt-1 rounded-xl"
                         autoComplete="username"
                         onChange={(e) => setData("email", e.target.value)}
                         invalid={Boolean(errors.email)}
@@ -67,16 +63,14 @@ export default function RegisterPage() {
                 </div>
 
                 <div>
-                    <Label htmlFor="password" className="ml-1">
-                        Password
-                    </Label>
+                    <Label className="ml-1">Password</Label>
 
                     <Input
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="block w-full mt-1"
+                        className="block w-full mt-1 rounded-xl"
                         autoComplete="new-password"
                         onChange={(e) => setData("password", e.target.value)}
                         invalid={Boolean(errors.password)}
@@ -87,16 +81,14 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="mt-4">
-                    <Label htmlFor="password_confirmation" className="ml-1">
-                        Confirm Password
-                    </Label>
+                    <Label className="ml-1">Confirm Password</Label>
 
                     <Input
                         id="password_confirmation"
                         type="password"
                         name="password_confirmation"
                         value={data.password_confirmation}
-                        className="block w-full mt-1"
+                        className="block w-full mt-1 rounded-xl"
                         autoComplete="new-password"
                         onChange={(e) =>
                             setData("password_confirmation", e.target.value)
