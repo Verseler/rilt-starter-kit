@@ -54,7 +54,7 @@ export default function LoginPage({
 
                 <div>
                     <Label htmlFor="password" className="ms-1">
-                        Label
+                        Password
                     </Label>
 
                     <Input
