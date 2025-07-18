@@ -39,7 +39,7 @@ export default function Authenticated({
             </nav>
 
             {header && (
-                <header className="bg-white shadow dark:bg-gray-800">
+                <header className="py-6 bg-white shadow dark:bg-gray-800">
                     <Container>{header}</Container>
                 </header>
             )}
