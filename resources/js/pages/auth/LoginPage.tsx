@@ -8,10 +8,8 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
 export default function LoginPage({
-    status,
     canResetPassword,
 }: {
-    status?: string;
     canResetPassword: boolean;
 }) {
     const { data, setData, post, processing, errors, reset } = useForm({
