@@ -35,3 +35,8 @@ export function formatDateTime(date: string | Date): string {
 export function getNameInitial(name: string): string {
   return name.charAt(0).toLocaleUpperCase();
 }
+
+export function getRouteName(url: string): string {
+    const urlArr = url.split("/");
+    return urlArr?.[urlArr.length - 1];
+}
