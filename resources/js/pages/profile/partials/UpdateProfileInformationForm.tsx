@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Transition } from "@headlessui/react";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { FormEventHandler } from "react";
-import { PageProps } from '@/types';
+import { PageProps } from "@/types";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -16,6 +16,7 @@ export default function UpdateProfileInformation({
     status?: string;
     className?: string;
 }) {
+    const user = usePage<PageProps>().props.auth.user;
     const user = usePage<PageProps>().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =

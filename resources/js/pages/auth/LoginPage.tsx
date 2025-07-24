@@ -49,7 +49,9 @@ export default function LoginPage({
                 </div>
 
                 <div>
-                    <Label className="ms-1">Password</Label>
+                    <Label htmlFor="password" className="ms-1">
+                        Password
+                    </Label>
 
                     <Input
                         id="password"
