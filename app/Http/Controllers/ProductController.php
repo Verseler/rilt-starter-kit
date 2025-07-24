@@ -15,10 +15,11 @@ class ProductController extends Controller
         $products = Product::with(['category', 'images'])->paginate(10);
 
         return Inertia::render('ProductsPage', [
-            'products' => Inertia::merge(fn() => $products->items()),
-            'totalProducts' => $products->total(),
-            'currentPage' => $products->currentPage(),
-            'lastPage' => $products->lastPage()
+            'products' => Inertia::merge(fn() => [
+                'items' => $products->items(),
+                'currentPage' => $products->currentPage(),
+                'lastPage' => $products->lastPage(),
+            ]),
         ]);
     }
 

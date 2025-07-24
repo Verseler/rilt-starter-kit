@@ -5,9 +5,11 @@ import { PageProps } from "@/types";
 import { usePage, WhenVisible } from "@inertiajs/react";
 
 type ProductsPageProps = PageProps & {
-    products?: ProductType[];
-    currentPage: number;
-    lastPage: number;
+    products: {
+        items: ProductType[];
+        currentPage: number;
+        lastPage: number;
+    };
 };
 
 export default function Products() {
@@ -21,18 +23,18 @@ export default function Products() {
     return (
         <div>
             <div className="grid grid-cols-2 gap-2 md:gap-4 md:grid-cols-4 2xl:grid-cols-5">
-                {products.map((product, index) => (
+                {products.items.map((product, index) => (
                     <Product key={`${product.id}${index}`} product={product} />
                 ))}
             </div>
 
             {/* Infinite Scroll */}
-            {props.currentPage < props.lastPage && (
+            {products.currentPage < products.lastPage && (
                 <WhenVisible
                     always
                     params={{
                         data: {
-                            page: props.currentPage + 1,
+                            page: products.currentPage + 1,
                         },
                         only: ["products", "currentPage"],
                         preserveUrl: true,
