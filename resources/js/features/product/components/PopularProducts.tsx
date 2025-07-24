@@ -5,14 +5,14 @@ import { PageProps } from "@/types";
 import { usePage } from "@inertiajs/react";
 
 type ProductsPageProps = PageProps & {
-    products?: ProductType[];
+    popularProducts?: ProductType[];
     currentPage: number;
     lastPage: number;
 };
 
 export default function PopularProducts() {
     const { props } = usePage<ProductsPageProps>();
-    const products = props.products;
+    const products = props.popularProducts;
 
     if (!products) {
         return <ProductsSkeleton />;

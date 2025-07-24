@@ -94,7 +94,7 @@ export default function HomePage() {
                     </div>
 
                     <WhenVisible
-                        data="products"
+                        data="popularProducts"
                         fallback={<ProductsSkeleton />}
                     >
                         <PopularProducts />

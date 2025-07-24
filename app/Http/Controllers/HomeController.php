@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
         return Inertia::render('HomePage', [
             'categories' => Inertia::lazy(fn() => Category::withCount('products')->limit(5)->get()),
-            'products' => Inertia::lazy(fn() => Product::with(['category', 'images'])->limit(10)->get()),
+            'popularProducts' => Inertia::lazy(fn() => Product::with(['category', 'images'])->limit(10)->get()),
         ]);
     }
 }
