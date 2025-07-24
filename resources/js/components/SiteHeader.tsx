@@ -4,10 +4,10 @@ import { getRouteName } from "@/lib/utils";
 import { PageProps } from "@/types";
 import { usePage } from "@inertiajs/react";
 
-export function SiteHeader() {
+export function SiteHeader({ title }: { title?: string }) {
     const pageUrl = usePage<PageProps>().url;
     const routeName = getRouteName(pageUrl);
-    const title = routeName === "admin" ? "Dashboard" : routeName;
+    const titleValue = title ?? routeName;
 
     return (
         <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear">
@@ -17,7 +17,9 @@ export function SiteHeader() {
                     orientation="vertical"
                     className="mx-2 data-[orientation=vertical]:h-4"
                 />
-                <h1 className="text-base font-medium capitalize">{title}</h1>
+                <h1 className="text-base font-medium capitalize">
+                    {titleValue}
+                </h1>
             </div>
         </header>
     );

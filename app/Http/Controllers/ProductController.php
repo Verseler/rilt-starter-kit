@@ -12,7 +12,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['category'])->paginate(10);
+        $products = Product::with(['category', 'images'])->paginate(10);
 
         return Inertia::render('ProductsPage', [
             'products' => Inertia::merge(fn() => $products->items()),
@@ -28,6 +28,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->category;
+        $product->images;
 
         return Inertia::render('ProductPage', [
             'product' => $product

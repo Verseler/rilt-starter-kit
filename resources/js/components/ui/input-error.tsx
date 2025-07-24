@@ -1,18 +1,18 @@
 import { HTMLAttributes } from "react";
 
 export function InputError({
-    message,
     className = "",
+    children,
     ...props
-}: HTMLAttributes<HTMLParagraphElement> & { message?: string }) {
-    return message ? (
+}: HTMLAttributes<HTMLParagraphElement>) {
+    return children ? (
         <p
             {...props}
             className={
                 "text-sm ms-1 text-red-600 dark:text-red-400 " + className
             }
         >
-            {message}
+            {children}
         </p>
     ) : null;
 }
