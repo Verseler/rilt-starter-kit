@@ -6,12 +6,11 @@ export default function ProductGallery({ images }: { images: ProductImage[] }) {
     const [selectedImage, setSelectedImage] = useState(
         images?.[0] ?? undefined
     );
-
     return (
         <div className="space-y-4 aspect-square bg-yellow-50">
             <img
-                className="object-cover rounded-lg size-full"
-                src={selectedImage?.image_src}
+                className="object-cover border rounded-lg size-full"
+                src={selectedImage?.path}
                 alt="product sample image"
             />
 
@@ -30,7 +29,7 @@ export default function ProductGallery({ images }: { images: ProductImage[] }) {
                                         ? "border-black"
                                         : "border-primary-50"
                                 )}
-                                src={image?.image_src}
+                                src={image?.path}
                                 alt="product sample image"
                             />
                         </button>

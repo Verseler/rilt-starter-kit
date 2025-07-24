@@ -8,7 +8,7 @@ export type Category = {
 
 export type ProductImage = {
     id: number;
-    image_src: string;
+    path: string;
     product_id: number;
     created_at: string;
     updated_at: string;
@@ -26,7 +26,7 @@ export type Product = {
     category_id: number;
     category: Category;
     quantity: number;
-    product_images?: ProductImage[];
+    images?: ProductImage[];
     created_at: string;
     updated_at: string;
 };

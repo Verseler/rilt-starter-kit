@@ -17,7 +17,7 @@ import React from "react";
 
 export default function Product({ product }: { product: ProductType }) {
     const { addToCart } = useCart();
-    const coverImage = product?.product_images?.[0]?.image_src;
+    const coverImage = product?.images?.[0]?.path;
 
     function handleAddToCart(e: React.MouseEvent<HTMLButtonElement>) {
         e.stopPropagation();
@@ -27,7 +27,7 @@ export default function Product({ product }: { product: ProductType }) {
     }
 
     return (
-        <Link href={route("product.show", { product: product })}>
+        <Link href={route("customer.product.show", { product: product })}>
             <Card className="p-2 transition-shadow md:p-3 max-w-80 rounded-2xl hover:shadow-xl">
                 <CardContent className="p-0">
                     <ProductCoverImage src={coverImage} />

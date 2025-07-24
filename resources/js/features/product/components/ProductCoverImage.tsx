@@ -9,7 +9,7 @@ export default function ProductCoverImage({ src }: ProductCoverImageProps) {
 
     return (
         <img
-            className="h-40 md:h-72 rounded-xl"
+            className="h-40 md:h-72 object-cover rounded-xl"
             src={src}
             alt="product cover image"
         />

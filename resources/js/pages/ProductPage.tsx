@@ -26,7 +26,7 @@ export default function ProductPage({ product }: ProductPageProps) {
                 <WhenVisible data="product" fallback={<ProductPageSkeleton />}>
                     <div className="grid gap-8 md:grid-cols-2">
                         <ProductGallery
-                            images={product?.product_images ?? []}
+                            images={product?.images ?? []}
                         />
 
                         <div

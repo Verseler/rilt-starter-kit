@@ -36,7 +36,7 @@ export default function CartItemCard({ product }: { product: Product }) {
         >
             <CardContent className="relative flex gap-6 border-b">
                 <img
-                    src={product?.product_images?.[0]?.image_src}
+                    src={product?.images?.[0]?.path}
                     className="rounded-lg w-28 aspect-square"
                 />
                 <div className="w-full">

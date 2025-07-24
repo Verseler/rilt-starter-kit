@@ -22,7 +22,7 @@ export default function HomePage() {
             <Container className="isolate">
                 <Section
                     aria-label="hero section"
-                    className="relative flex gap-20 pt-40"
+                    className="relative flex gap-20 pt-48"
                 >
                     <div className="space-y-4">
                         <H1>
@@ -37,7 +37,7 @@ export default function HomePage() {
                         </P>
 
                         <div className="flex gap-4 pt-8">
-                            <LinkButton href={route("product.index")}>
+                            <LinkButton href={route("customer.product.index")}>
                                 View Products
                             </LinkButton>
                             <LinkButton href={route("cart")} variant="outline">
@@ -61,7 +61,7 @@ export default function HomePage() {
                             classic denim — from trusted seller.
                         </P>
                         <LinkButton
-                            href={route("product.index")}
+                            href={route("customer.product.index")}
                             variant="link"
                             className="text-base"
                         >
@@ -85,7 +85,7 @@ export default function HomePage() {
                             the community.
                         </P>
                         <LinkButton
-                            href={route("product.index")}
+                            href={route("customer.product.index")}
                             variant="link"
                             className="text-base"
                         >
@@ -101,7 +101,7 @@ export default function HomePage() {
                     </WhenVisible>
 
                     <div className="grid place-content-center">
-                        <LinkButton href={route("product.index")}>
+                        <LinkButton href={route("customer.product.index")}>
                             View all products <ArrowRightIcon />
                         </LinkButton>
                     </div>
