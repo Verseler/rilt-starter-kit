@@ -12,7 +12,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['category', 'images'])->paginate(10);
+        $products = Product::with(['category', 'images'])
+            ->paginate(10);
 
         return Inertia::render('ProductsPage', [
             'products' => Inertia::merge(fn() => [
@@ -20,6 +21,7 @@ class ProductController extends Controller
                 'currentPage' => $products->currentPage(),
                 'lastPage' => $products->lastPage(),
             ]),
+            'totalProducts' => Inertia::lazy(fn() => $products->total())
         ]);
     }
 
