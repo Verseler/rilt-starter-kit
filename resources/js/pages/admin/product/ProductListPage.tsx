@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { EllipsisVerticalIcon } from "lucide-react";
+import Searchbox from "@/components/Searchbox";
 import type { Pagination } from "@/types";
 
 type ProductListProps = {
@@ -37,6 +38,7 @@ export default function ProductListPage({ products }: ProductListProps) {
                 </div>
 
                 <div className="p-4 space-y-4 md:p-6">
+                    <Searchbox />
 
                     <Table className="border">
                         <TableHeader className="bg-neutral-100">

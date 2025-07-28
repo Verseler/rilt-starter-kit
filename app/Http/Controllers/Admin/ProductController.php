@@ -21,10 +21,15 @@ class ProductController extends Controller
     {
         $query = Product::query()->with(['category']);
 
+        if ($search = $request->get('search')) {
+            $query->where('name', 'ILIKE', "%{$search}%");
+        }
+
         $products = $query->paginate(10)->withQueryString();
 
         return Inertia::render('admin/product/ProductListPage', [
             'products' => $products,
+            'search' => $search,
         ]);
     }
 
