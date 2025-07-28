@@ -17,9 +17,15 @@ class ProductController extends Controller
     /**
      * Display a listing of the product.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('admin/product/ProductListPage');
+        $query = Product::query()->with(['category']);
+
+        $products = $query->paginate(10)->withQueryString();
+
+        return Inertia::render('admin/product/ProductListPage', [
+            'products' => $products,
+        ]);
     }
 
     /**

@@ -1,0 +1,117 @@
+import LinkButton from "@/components/LinkButton";
+import { SiteHeader } from "@/components/SiteHeader";
+import type { Product } from "@/features/product/product.types";
+import AdminLayout from "@/layouts/AdminLayout";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import { PaginationControls } from "@/components/PaginationControls";
+import { Badge } from "@/components/ui/badge";
+import { formatCurrency } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { EllipsisVerticalIcon } from "lucide-react";
+import type { Pagination } from "@/types";
+
+type ProductListProps = {
+    products: Pagination<Product>;
+};
+
+export default function ProductListPage({ products }: ProductListProps) {
+    return (
+        <AdminLayout>
+            <SiteHeader title="Product" />
+
+            <main className="py-4 md:gap-6 md:py-6">
+                <div className="grid px-6 mb-2 place-content-end">
+                    <LinkButton
+                        href={route("product.create")}
+                        className="max-w-40"
+                    >
+                        Create Product
+                    </LinkButton>
+                </div>
+
+                <div className="p-4 space-y-4 md:p-6">
+
+                    <Table className="border">
+                        <TableHeader className="bg-neutral-100">
+                            <TableRow>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Description</TableHead>
+                                <TableHead>Category</TableHead>
+                                <TableHead>Price</TableHead>
+                                <TableHead>Quantity</TableHead>
+                                <TableHead>Avg. Rating</TableHead>
+                                <TableHead>Total Reviews</TableHead>
+                                <TableHead />
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {products.data.map((product) => (
+                                <TableRow key={product.id} className="h-12">
+                                    <TableCell>{product.name}</TableCell>
+                                    <TableCell className="max-w-prose line-clamp-2">
+                                        <p className="h-9">
+                                            {product.description}
+                                        </p>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Badge
+                                            variant="outline"
+                                            className="text-neutral-500"
+                                        >
+                                            {product.category?.name}
+                                        </Badge>
+                                    </TableCell>
+                                    <TableCell>
+                                        {formatCurrency(product.price)}
+                                    </TableCell>
+                                    <TableCell>
+                                        {product.stock_quantity}
+                                    </TableCell>
+                                    <TableCell>
+                                        {product.average_rating}
+                                    </TableCell>
+                                    <TableCell>
+                                        {product.reviews_count}
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <Button
+                                            variant="ghost"
+                                            className="size-8"
+                                        >
+                                            <EllipsisVerticalIcon className="text-neutral-500" />
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+
+                            {products.data?.length === 0 && (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={8}
+                                        className="h-40 text-center text-neutral-500"
+                                    >
+                                        No products found.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+
+                    <PaginationControls
+                        currentPage={products.current_page}
+                        lastPage={products.last_page}
+                        prevPageUrl={products.prev_page_url}
+                        nextPageUrl={products.next_page_url}
+                    />
+                </div>
+            </main>
+        </AdminLayout>
+    );
+}
