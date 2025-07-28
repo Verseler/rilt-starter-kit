@@ -1,6 +1,3 @@
-import { MailIcon, PlusCircleIcon, type LucideIcon } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import {
     SidebarGroup,
     SidebarGroupContent,
@@ -15,46 +12,38 @@ import {
     ShoppingCartIcon,
     UsersIcon,
 } from "lucide-react";
-import { Link, usePage } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import { cn } from "@/lib/utils";
+import { Link } from "@inertiajs/react";
 
 const navMain = [
     {
         title: "Dashboard",
-        path: "/admin",
         route: "dashboard",
         icon: LayoutDashboardIcon,
     },
     // {
     //     title: "Categories",
-    //  path: '/admin/category',
     //     route: "category.index",
     //     icon: ListIcon,
     // },
     {
         title: "Products",
-        path: "/admin/product",
         route: "product.index",
         icon: ShirtIcon,
     },
     // {
     //     title: "Orders",
-    //  path: '/admin/order',
     //     route: "order.index",
     //     icon: ShoppingCartIcon,
     // },
     // {
     //     title: "Customers",
-    //  path: '/admin/customer',
     //     route: "customer.index",
     //     icon: UsersIcon,
     // },
 ];
 
 export function NavMain() {
-    const url = usePage<PageProps>().url;
-
+    const currentRoute = route().current();
     return (
         <SidebarGroup>
             <SidebarGroupContent className="flex flex-col gap-2">
@@ -65,9 +54,9 @@ export function NavMain() {
                                 <SidebarMenuButton
                                     tooltip={item.title}
                                     className={
-                                        url === item.path
-                                            ? "text-white bg-primary"
-                                            : ""
+                                        currentRoute === item.route
+                                            ? "text-white bg-primary hover:bg-primary hover:text-white"
+                                            : "hover:bg-neutral-100"
                                     }
                                 >
                                     {item.icon && <item.icon />}
