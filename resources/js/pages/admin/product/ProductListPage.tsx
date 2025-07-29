@@ -6,6 +6,7 @@ import {
     Table,
     TableBody,
     TableCell,
+    TableDataEmpty,
     TableHead,
     TableHeader,
     TableRow,
@@ -93,12 +94,9 @@ export default function ProductListPage({ products }: ProductListProps) {
 
                             {products.data?.length === 0 && (
                                 <TableRow>
-                                       <TableCell
-                                        colSpan={8}
-                                        className="h-40 text-center text-neutral-500"
-                                    >
+                                    <TableDataEmpty colSpan={8}>
                                         No products found.
-                                    </TableCell>
+                                    </TableDataEmpty>
                                 </TableRow>
                             )}
                         </TableBody>
