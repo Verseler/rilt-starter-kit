@@ -107,8 +107,10 @@ class ProductController extends Controller
     /**
      * Remove the specified product from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->back()->with('success', "Successfully deleted {$product->name}");
     }
 }

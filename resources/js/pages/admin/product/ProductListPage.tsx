@@ -14,15 +14,47 @@ import { PaginationControls } from "@/components/PaginationControls";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { EllipsisVerticalIcon } from "lucide-react";
+import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "lucide-react";
 import Searchbox from "@/components/Searchbox";
 import type { Pagination } from "@/types";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+import { router } from "@inertiajs/react";
+import ConfirmDeleteDialog from "@/components/AlertDialog/ConfirmDeleteDialog";
 
 type ProductListProps = {
     products: Pagination<Product>;
 };
 
 export default function ProductListPage({ products }: ProductListProps) {
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [productToDelete, setProductToDelete] = useState<Product | null>(
+        null
+    );
+
+    function openDialog(product: Product) {
+        setDeleteDialogOpen(true);
+        setProductToDelete(product);
+    }
+
+    function handleDeleteConfirm() {
+        if (productToDelete) {
+            router.delete(route("product.destroy", productToDelete.id), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    setDeleteDialogOpen(false);
+                    setProductToDelete(null);
+                },
+            });
+        }
+    }
+
     return (
         <AdminLayout>
             <SiteHeader title="Product" />
@@ -54,48 +86,14 @@ export default function ProductListPage({ products }: ProductListProps) {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {products.data.map((product) => (
-                                <TableRow key={product.id} className="h-12">
-                                    <TableCell>{product.name}</TableCell>
-                                    <TableCell className="max-w-prose line-clamp-2">
-                                        <p className="h-9">
-                                            {product.description}
-                                        </p>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Badge
-                                            variant="outline"
-                                            className="text-neutral-500"
-                                        >
-                                            {product.category?.name}
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell>
-                                        {formatCurrency(product.price)}
-                                    </TableCell>
-                                    <TableCell>
-                                        {product.stock_quantity}
-                                    </TableCell>
-                                    <TableCell>
-                                        {product.average_rating}
-                                    </TableCell>
-                                    <TableCell>
-                                        {product.reviews_count}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <Button
-                                            variant="ghost"
-                                            className="size-8"
-                                        >
-                                            <EllipsisVerticalIcon className="text-neutral-500" />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            <ProductDataRows
+                                products={products.data}
+                                onDelete={openDialog}
+                            />
 
                             {products.data?.length === 0 && (
                                 <TableRow>
-                                    <TableCell
+                                       <TableCell
                                         colSpan={8}
                                         className="h-40 text-center text-neutral-500"
                                     >
@@ -113,7 +111,64 @@ export default function ProductListPage({ products }: ProductListProps) {
                         nextPageUrl={products.next_page_url}
                     />
                 </div>
+
+                <ConfirmDeleteDialog
+                    open={deleteDialogOpen}
+                    title={`Delete ${productToDelete?.name ?? ""}?`}
+                    onCancel={() => setDeleteDialogOpen(false)}
+                    onConfirm={handleDeleteConfirm}
+                />
             </main>
         </AdminLayout>
     );
+}
+
+type ProductDataRows = {
+    products: Product[];
+    onDelete: (product: Product) => void;
+};
+
+function ProductDataRows({ products, onDelete }: ProductDataRows) {
+    return products.map((product) => (
+        <TableRow key={product.id} className="h-12">
+            <TableCell>{product.name}</TableCell>
+            <TableCell className="max-w-prose line-clamp-2">
+                <p className="h-9">{product.description}</p>
+            </TableCell>
+            <TableCell>
+                <Badge variant="outline" className="text-neutral-500">
+                    {product.category?.name}
+                </Badge>
+            </TableCell>
+            <TableCell>{formatCurrency(product.price)}</TableCell>
+            <TableCell>{product.stock_quantity}</TableCell>
+            <TableCell>{product.average_rating}</TableCell>
+            <TableCell>{product.reviews_count}</TableCell>
+            {/* Action Button */}
+            <TableCell align="center">
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="size-8">
+                            <EllipsisVerticalIcon className="text-neutral-500" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-32" align="end">
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem>
+                                <PencilIcon />
+                                Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                onClick={() => onDelete(product)}
+                                className="text-red-500"
+                            >
+                                <TrashIcon />
+                                Delete
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </TableCell>
+        </TableRow>
+    ));
 }
