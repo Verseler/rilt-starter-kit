@@ -137,7 +137,7 @@ function CategoryDataRows({ categories, onDelete }: CategoryDataRowsProps) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-32" align="end">
                         <DropdownMenuGroup>
-                            <Link href={route("products.edit", category)}>
+                            <Link href={route("categories.edit", category)}>
                                 <DropdownMenuItem>
                                     <PencilIcon />
                                     Edit
