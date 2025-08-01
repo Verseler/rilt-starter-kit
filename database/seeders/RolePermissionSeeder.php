@@ -26,6 +26,7 @@ class RolePermissionSeeder extends Seeder
             'view products',
             'create category',
             'update category',
+            'delete category',
             'view categories',
             'update order',
             'view orders'
