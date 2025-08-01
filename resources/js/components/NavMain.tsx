@@ -20,11 +20,11 @@ const navMain = [
         route: "dashboard",
         icon: LayoutDashboardIcon,
     },
-    // {
-    //     title: "Categories",
-    //     route: "category.index",
-    //     icon: ListIcon,
-    // },
+    {
+        title: "Categories",
+        route: "categories.index",
+        icon: ListIcon,
+    },
     {
         title: "Products",
         route: "products.index",
