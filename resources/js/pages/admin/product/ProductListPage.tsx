@@ -16,7 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "lucide-react";
-import Searchbox from "@/components/Searchbox";
+import ProductSearchbox from "@/features/product/components/ProductSearchbox";
 import type { Pagination } from "@/types";
 import {
     DropdownMenu,
@@ -71,7 +71,7 @@ export default function ProductListPage({ products }: ProductListProps) {
                 </div>
 
                 <div className="p-4 space-y-4 md:p-6">
-                    <Searchbox />
+                    <ProductSearchbox />
 
                     <Table className="border">
                         <TableHeader className="bg-neutral-100">

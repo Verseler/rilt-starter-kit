@@ -5,7 +5,7 @@ import {
     CardFooter,
     CardTitle,
 } from "@/components/ui/card";
-import type { Category } from "@/features/product/product.types";
+import type { Category } from "@/features/category/category.types";
 import { Link } from "@inertiajs/react";
 import { ShirtIcon } from "lucide-react";
 

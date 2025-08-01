@@ -1,6 +1,6 @@
 import ProductCategoryCard from "@/features/product/components/ProductCategoryCard";
 import { CategoriesSkeleton } from "@/features/product/components/skeletons/CategorySkeleton";
-import type { Category } from "@/features/product/product.types";
+import type { Category } from "@/features/category/category.types";
 import { PageProps } from "@/types";
 import { usePage } from "@inertiajs/react";
 
