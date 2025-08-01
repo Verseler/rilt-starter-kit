@@ -37,7 +37,7 @@ export default function HomePage() {
                         </P>
 
                         <div className="flex gap-4 pt-8">
-                            <LinkButton href={route("customer.product.index")}>
+                            <LinkButton href={route("customer.products.index")}>
                                 View Products
                             </LinkButton>
                             <LinkButton href={route("cart")} variant="outline">
@@ -61,7 +61,7 @@ export default function HomePage() {
                             classic denim — from trusted seller.
                         </P>
                         <LinkButton
-                            href={route("customer.product.index")}
+                            href={route("customer.products.index")}
                             variant="link"
                             className="text-base"
                         >
@@ -85,7 +85,7 @@ export default function HomePage() {
                             the community.
                         </P>
                         <LinkButton
-                            href={route("customer.product.index")}
+                            href={route("customer.products.index")}
                             variant="link"
                             className="text-base"
                         >
@@ -101,7 +101,7 @@ export default function HomePage() {
                     </WhenVisible>
 
                     <div className="grid place-content-center">
-                        <LinkButton href={route("customer.product.index")}>
+                        <LinkButton href={route("customer.products.index")}>
                             View all products <ArrowRightIcon />
                         </LinkButton>
                     </div>

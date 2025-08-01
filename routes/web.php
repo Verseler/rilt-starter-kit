@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -11,8 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('carts', CartController::class)->name('cart');
-Route::get('product', [ProductController::class, 'index'])->name('customer.product.index');
-Route::get('product/{product}', [ProductController::class, 'show'])->name('customer.product.show');
+Route::get('products', [ProductController::class, 'index'])->name('customer.products.index');
+Route::get('products/{product}', [ProductController::class, 'show'])->name('customer.products.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,7 +22,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
-    Route::resource('product', ProductAdminController::class);
+    Route::resource('products', ProductAdminController::class);
 });
 
 require __DIR__ . '/auth.php';

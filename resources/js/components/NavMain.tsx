@@ -27,7 +27,7 @@ const navMain = [
     // },
     {
         title: "Products",
-        route: "product.index",
+        route: "products.index",
         icon: ShirtIcon,
     },
     // {

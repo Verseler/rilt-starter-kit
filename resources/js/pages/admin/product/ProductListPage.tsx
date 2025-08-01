@@ -26,7 +26,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
-import { router } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import ConfirmDeleteDialog from "@/components/AlertDialog/ConfirmDeleteDialog";
 
 type ProductListProps = {
@@ -46,7 +46,7 @@ export default function ProductListPage({ products }: ProductListProps) {
 
     function handleDeleteConfirm() {
         if (productToDelete) {
-            router.delete(route("product.destroy", productToDelete.id), {
+            router.delete(route("products.destroy", productToDelete.id), {
                 preserveScroll: true,
                 onSuccess: () => {
                     setDeleteDialogOpen(false);
@@ -63,7 +63,7 @@ export default function ProductListPage({ products }: ProductListProps) {
             <main className="py-4 md:gap-6 md:py-6">
                 <div className="grid px-6 mb-2 place-content-end">
                     <LinkButton
-                        href={route("product.create")}
+                        href={route("products.create")}
                         className="max-w-40"
                     >
                         Create Product
@@ -152,10 +152,12 @@ function ProductDataRows({ products, onDelete }: ProductDataRows) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-32" align="end">
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <PencilIcon />
-                                Edit
-                            </DropdownMenuItem>
+                            <Link href={route("products.edit", product)}>
+                                <DropdownMenuItem>
+                                    <PencilIcon />
+                                    Edit
+                                </DropdownMenuItem>
+                            </Link>
                             <DropdownMenuItem
                                 onClick={() => onDelete(product)}
                                 className="text-red-500"

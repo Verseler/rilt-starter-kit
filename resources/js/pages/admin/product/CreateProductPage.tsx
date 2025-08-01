@@ -55,7 +55,7 @@ export default function CreateProductPage({
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
 
-        post(route("product.store"));
+        post(route("products.store"));
     }
 
     return (
@@ -191,7 +191,7 @@ export default function CreateProductPage({
                     <div className="flex items-center justify-end mt-6 gap-x-2">
                         <LinkButton
                             type="button"
-                            href={route("product.index")}
+                            href={route("products.index")}
                             variant="outline"
                             className="px-4"
                         >

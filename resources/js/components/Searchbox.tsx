@@ -19,7 +19,7 @@ export default function Searchbox() {
     });
 
     const handleSearch = useDebouncedCallback(() => {
-        get(route("product.index"), {
+        get(route("products.index"), {
             preserveState: true,
             preserveScroll: true,
             replace: true,
