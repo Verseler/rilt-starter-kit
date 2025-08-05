@@ -16,7 +16,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import CategorySearchbox from "@/features/category/CategorySearchbox";
+import CategorySearchbox from "@/features/category/components/CategorySearchbox";
 import AdminLayout from "@/layouts/AdminLayout";
 import type { Category } from "@/features/category/category.types";
 import type { Pagination } from "@/types";
@@ -69,7 +69,7 @@ export default function CategoryListPage({ categories }: CategoryListProps) {
                     </LinkButton>
                 </div>
 
-                <div className="p-4 space-y-4 mid:p-6">
+                <div className="p-4 space-y-4 md:p-6">
                     <CategorySearchbox />
 
                     <Table className="border">
