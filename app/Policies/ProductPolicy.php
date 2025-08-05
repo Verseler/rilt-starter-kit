@@ -36,7 +36,7 @@ class ProductPolicy
     /**
      * Determine whether the user can update the product.
      */
-    public function update(User $user, Product $product): bool
+    public function update(User $user): bool
     {
         return $user->hasRole('admin') &&
             $user->can('update product');

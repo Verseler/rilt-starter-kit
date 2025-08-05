@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -39,7 +42,7 @@ class ProductController extends Controller
     public function create()
     {
         return Inertia::render('admin/product/CreateProductPage', [
-            'categories' => Category::withCount('products')->limit(5)->get()
+            'categories' => Category::withCount('products')->get()
         ]);
     }
 
@@ -91,17 +94,70 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified product.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        return Inertia::render('admin/product/EditProductPage');
+        $product->load('images');
+
+        return Inertia::render('admin/product/EditProductPage', [
+            'categories' => Category::withCount('products')->get(),
+            'product' => $product
+        ]);
     }
 
     /**
      * Update the specified product in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            DB::transaction(function () use ($validated, $product) {
+                // Update product details
+                $product->update([
+                    'name' => $validated['name'],
+                    'description' => $validated['description'],
+                    'price' => $validated['price'],
+                    'stock_quantity' => $validated['stock_quantity'],
+                    'category_id' => $validated['category_id'],
+                ]);
+
+                // Handle deleted images
+                if (!empty($validated['deleted_images'])) {
+                    foreach ($validated['deleted_images'] as $imagePath) {
+                        // Remove '/storage/' prefix if present
+                        $storagePath = str_replace(
+                            '/storage/',
+                            '',
+                            $imagePath
+                        );
+
+                        // Delete from storage
+                        Storage::disk('public')->delete($storagePath);
+
+                        // Delete from database
+                        $product->images()
+                            ->where('path', $imagePath)
+                            ->delete();
+                    }
+                }
+
+                // Handle add new images
+                if (!empty($validated['new_images'])) {
+                    foreach ($validated['new_images'] as $image) {
+                        $path = $image->store('products', 'public');
+
+                        ProductImage::create([
+                            'path' => "/storage/{$path}",
+                            'product_id' => $product->id,
+                        ]);
+                    }
+                }
+            });
+            return to_route('products.index')->with('success', 'Successfully created');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
