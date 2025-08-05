@@ -35,11 +35,11 @@ const navMain = [
     //     route: "order.index",
     //     icon: ShoppingCartIcon,
     // },
-    // {
-    //     title: "Customers",
-    //     route: "customer.index",
-    //     icon: UsersIcon,
-    // },
+    {
+        title: "Customers",
+        route: "customers.index",
+        icon: UsersIcon,
+    },
 ];
 
 export function NavMain() {

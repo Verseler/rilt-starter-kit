@@ -87,14 +87,6 @@ export default function CategoryListPage({ categories }: CategoryListProps) {
                                 onDelete={openDialog}
                             />
                         </TableBody>
-
-                        {categories.data?.length === 0 && (
-                            <TableRow>
-                                <TableDataEmpty colSpan={4}>
-                                    No categories found.
-                                </TableDataEmpty>
-                            </TableRow>
-                        )}
                     </Table>
 
                     <PaginationControls
@@ -117,11 +109,21 @@ export default function CategoryListPage({ categories }: CategoryListProps) {
 }
 
 type CategoryDataRowsProps = {
-    categories: Category[];
+    categories: Category[] | undefined;
     onDelete: (category: Category) => void;
 };
 
 function CategoryDataRows({ categories, onDelete }: CategoryDataRowsProps) {
+    if (!categories || categories?.length === 0) {
+        return (
+            <TableRow>
+                <TableDataEmpty colSpan={4}>
+                    No categories found.
+                </TableDataEmpty>
+            </TableRow>
+        );
+    }
+
     return categories.map((category) => (
         <TableRow key={category.id} className="h-12">
             <TableCell>{category.name}</TableCell>

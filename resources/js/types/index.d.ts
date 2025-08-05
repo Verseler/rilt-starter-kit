@@ -6,6 +6,8 @@ export interface User {
     email: string;
     email_verified_at?: string;
     roles: UserRole[];
+    created_at: string;
+    updated_at: string;
 }
 
 export interface Flash {

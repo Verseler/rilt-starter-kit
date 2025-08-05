@@ -91,14 +91,6 @@ export default function ProductListPage({ products }: ProductListProps) {
                                 products={products.data}
                                 onDelete={openDialog}
                             />
-
-                            {products.data?.length === 0 && (
-                                <TableRow>
-                                    <TableDataEmpty colSpan={8}>
-                                        No products found.
-                                    </TableDataEmpty>
-                                </TableRow>
-                            )}
                         </TableBody>
                     </Table>
 
@@ -122,11 +114,19 @@ export default function ProductListPage({ products }: ProductListProps) {
 }
 
 type ProductDataRows = {
-    products: Product[];
+    products: Product[]  | undefined;
     onDelete: (product: Product) => void;
 };
 
 function ProductDataRows({ products, onDelete }: ProductDataRows) {
+    if (!products || products?.length === 0) {
+        return (
+            <TableRow>
+                <TableDataEmpty colSpan={8}>No products found.</TableDataEmpty>
+            </TableRow>
+        );
+    }
+
     return products.map((product) => (
         <TableRow key={product.id} className="h-12">
             <TableCell>{product.name}</TableCell>

@@ -29,7 +29,8 @@ class RolePermissionSeeder extends Seeder
             'delete category',
             'view categories',
             'update order',
-            'view orders'
+            'view orders',
+            'view customers'
         ];
 
         //* Create Permissions
