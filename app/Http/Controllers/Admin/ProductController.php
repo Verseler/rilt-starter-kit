@@ -165,6 +165,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        Gate::authorize('delete', $product);
+
         $product->delete();
 
         return redirect()->back()->with('success', "Successfully deleted {$product->name}");
