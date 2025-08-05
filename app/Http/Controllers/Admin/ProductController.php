@@ -67,16 +67,23 @@ class ProductController extends Controller
                 ]);
 
                 //store product images
-                foreach ($validated['images'] as $image) {
-                    $path = $image->store('products', 'public');
+                if (!empty($validated['images'])) {
+                    foreach ($validated['images'] as $image) {
+                        $path = $image->store('products', 'public');
 
-                    ProductImage::create([
-                        'path' => "/storage/{$path}",
-                        'product_id' => $product->id,
-                    ]);
+                        ProductImage::create([
+                            'path' => "/storage/{$path}",
+                            'product_id' => $product->id,
+                        ]);
+                    }
                 }
             });
-            return to_route('product.index')->with('success', 'Successfully created');
+
+            return to_route('products.index')->with(
+                'success',
+                'Successfully created'
+            );
+
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
