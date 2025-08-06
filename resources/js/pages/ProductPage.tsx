@@ -25,9 +25,7 @@ export default function ProductPage({ product }: ProductPageProps) {
             <Container className="md:py-12 md:px-40">
                 <WhenVisible data="product" fallback={<ProductPageSkeleton />}>
                     <div className="grid gap-8 md:grid-cols-2">
-                        <ProductGallery
-                            images={product?.images ?? []}
-                        />
+                        <ProductGallery images={product?.images ?? []} />
 
                         <div
                             aria-label="product-description"
@@ -49,6 +47,12 @@ export default function ProductPage({ product }: ProductPageProps) {
                                 rating={product.average_rating}
                                 ratingCount={product.rating_count}
                             />
+                            <span
+                                aria-label="quantity"
+                                className="block text-xs text-neutral-600"
+                            >
+                               Quantity: {product.stock_quantity}
+                            </span>
 
                             <div className="py-2">
                                 <Separator />
