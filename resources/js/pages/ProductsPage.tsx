@@ -1,11 +1,10 @@
 import Container from "@/components/Container";
 import { H1, P } from "@/components/Typography";
-import { Button } from "@/components/ui/button";
 import Products from "@/features/product/components/Products";
 import { ProductsSkeleton } from "@/features/product/components/skeletons/ProductSkeleton";
 import MainLayout from "@/layouts/MainLayout";
 import { Head, WhenVisible } from "@inertiajs/react";
-import { PlusIcon } from "lucide-react";
+import ProductFilter from "@/features/product/components/ProductFilter";
 
 type ProductsPageProps = {
     totalProducts: number;
@@ -19,14 +18,11 @@ export default function ProductsPage({ totalProducts }: ProductsPageProps) {
             <Container className="mt-10">
                 <H1 className="!text-4xl flex gap-2">
                     Products
-                    <WhenVisible always data="totalProducts" fallback={<></>}>
-                        <span>({totalProducts})</span>
-                    </WhenVisible>
+                    <span>({totalProducts})</span>
                 </H1>
                 <P>Explore all products from around the world</P>
-                <Button className="mt-8">
-                    Filters <PlusIcon />
-                </Button>
+
+                <ProductFilter />
 
                 <div className="mt-6">
                     <WhenVisible
