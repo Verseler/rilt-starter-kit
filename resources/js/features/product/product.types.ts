@@ -1,4 +1,5 @@
 import type { Category } from '@/features/category/category.types';
+import { PageProps } from '@/types';
 
 
 export type ProductImage = {
@@ -28,4 +29,9 @@ export type Product = {
 
 export type ProductFilters = {
     search?: string;
+    sort?: string;
+    categoryFilter?: string;
 };
+
+export type ProductFilterPageProps = PageProps & ProductFilters &
+{ categories: Category[] };

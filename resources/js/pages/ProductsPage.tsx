@@ -4,7 +4,8 @@ import Products from "@/features/product/components/Products";
 import { ProductsSkeleton } from "@/features/product/components/skeletons/ProductSkeleton";
 import MainLayout from "@/layouts/MainLayout";
 import { Head, WhenVisible } from "@inertiajs/react";
-import ProductFilter from "@/features/product/components/ProductFilter";
+import ProductFilterSheet from "@/features/product/components/ProductFilterSheet";
+import ProductSelectedFilters from '@/features/product/components/ProductSelectedFilters';
 
 type ProductsPageProps = {
     totalProducts: number;
@@ -22,7 +23,10 @@ export default function ProductsPage({ totalProducts }: ProductsPageProps) {
                 </H1>
                 <P>Explore all products from around the world</P>
 
-                <ProductFilter />
+                <div className="flex items-center gap-2 mt-4">
+                    <ProductFilterSheet />
+                    <ProductSelectedFilters />
+                </div>
 
                 <div className="mt-6">
                     <WhenVisible

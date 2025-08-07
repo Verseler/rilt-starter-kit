@@ -19,8 +19,10 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { router, useForm, usePage, WhenVisible } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import { Category } from "@/features/category/category.types";
+import type {
+    ProductFilterPageProps,
+    ProductFilters,
+} from "@/features/product/product.types";
 
 const sortOptions = [
     { value: "price_asc", label: "Price: Low to High" },
@@ -33,17 +35,9 @@ const sortOptions = [
     { value: "reviews_desc", label: "Most Reviewed" },
 ];
 
-type ProductFilters = {
-    sort?: string;
-    categoryFilter?: string;
-};
-
-type ProductFilterProps = PageProps &
-    ProductFilters & { categories: Category[] };
-
-export default function ProductFilter() {
+export default function ProductFilterSheet() {
     const { categories, sort, categoryFilter } =
-        usePage<ProductFilterProps>().props;
+        usePage<ProductFilterPageProps>().props;
 
     const { get, data, setData } = useForm<ProductFilters>({
         sort: sort ?? "",
@@ -67,10 +61,11 @@ export default function ProductFilter() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button className="mt-8">
+                <Button>
                     Filters <PlusIcon />
                 </Button>
             </SheetTrigger>
+
             <SheetContent>
                 <SheetHeader>
                     <SheetTitle>Filter/Sort Options</SheetTitle>
