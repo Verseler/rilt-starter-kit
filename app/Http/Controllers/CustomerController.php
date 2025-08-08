@@ -18,7 +18,7 @@ class CustomerController extends Controller
 
         $customers = $query->paginate(10)->withQueryString();
 
-        return Inertia::render('admin/customer/CustomerListPage', [
+        return Inertia::render('admin/CustomerListPage', [
             'customers' => $customers
         ]);
     }
