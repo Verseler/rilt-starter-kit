@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolePermissionSeeder::class,
-            CategorySeeder::class,
-            ProductSeeder::class
+            // CategorySeeder::class,
+            // ProductSeeder::class
         ]);
 
         //admin account
@@ -27,5 +27,12 @@ class DatabaseSeeder extends Seeder
             'password' => '1010101010'
         ]);
         $user->assignRole('admin');
+
+
+        $this->call([
+            OrderSeeder::class,
+            // CategorySeeder::class,
+            // ProductSeeder::class
+        ]);
     }
 }

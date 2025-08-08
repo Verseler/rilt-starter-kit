@@ -30,11 +30,11 @@ const navMain = [
         route: "products.index",
         icon: ShirtIcon,
     },
-    // {
-    //     title: "Orders",
-    //     route: "order.index",
-    //     icon: ShoppingCartIcon,
-    // },
+    {
+        title: "Orders",
+        route: "orders.index",
+        icon: ShoppingCartIcon,
+    },
     {
         title: "Customers",
         route: "customers.index",
