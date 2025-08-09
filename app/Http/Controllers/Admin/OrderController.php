@@ -19,9 +19,9 @@ class OrderController extends Controller
         //Search OR # or Customer Name
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {
-                $q->where('or_number', 'ILIKE', "%{$search}%")
+                $q->where('or_number', 'LIKE', "%{$search}%")
                     ->orWhereHas('customer', function ($q2) use ($search) {
-                        $q2->where('name', 'ILIKE', "%{$search}%");
+                        $q2->where('name', 'LIKE', "%{$search}%");
                     });
             });
         }
@@ -30,7 +30,7 @@ class OrderController extends Controller
         $activeTab = $request->get('activeTab', 'all');
 
         if ($activeTab !== 'all') {
-            $query->where('status', 'ILIKE', "%{$activeTab}%");
+            $query->where('status', 'LIKE', "%{$activeTab}%");
         }
 
         $orders = $query->paginate(10)->withQueryString();
@@ -80,9 +80,11 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Order $order)
     {
-        //
+        return Inertia::render('admin/order/EditOrderPage', [
+            'order' => $order,
+        ]);
     }
 
     /**

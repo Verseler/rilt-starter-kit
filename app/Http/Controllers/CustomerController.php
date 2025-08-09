@@ -13,7 +13,7 @@ class CustomerController extends Controller
         $query = User::query()->role('customer');
 
         if ($search = $request->get('search')) {
-            $query->where('name', 'ILIKE', "%$search%");
+            $query->where('name', 'LIKE', "%$search%");
         }
 
         $customers = $query->paginate(10)->withQueryString();

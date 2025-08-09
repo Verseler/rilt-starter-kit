@@ -25,7 +25,7 @@ class ProductController extends Controller
         $query = Product::query()->with(['category']);
 
         if ($search = $request->get('search')) {
-            $query->where('name', 'ILIKE', "%{$search}%");
+            $query->where('name', 'LIKE', "%{$search}%");
         }
 
         $products = $query->paginate(10)->withQueryString();

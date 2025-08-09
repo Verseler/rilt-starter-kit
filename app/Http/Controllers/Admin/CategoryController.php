@@ -20,7 +20,7 @@ class CategoryController extends Controller
         $query = Category::query()->withCount(['products']);
 
         if ($search = $request->get('search')) {
-            $query->where('name', 'ILIKE', "%$search%");
+            $query->where('name', 'LIKE', "%$search%");
         }
 
         $categories = $query->paginate(10)->withQueryString();
