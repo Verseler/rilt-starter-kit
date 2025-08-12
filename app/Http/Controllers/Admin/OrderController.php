@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -82,6 +86,8 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
+        $order->load('customer', 'ShippingAddress', 'orderItems.product');
+
         return Inertia::render('admin/order/EditOrderPage', [
             'order' => $order,
         ]);
@@ -90,9 +96,42 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateOrderRequest $request, Order $order, OrderService $service)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            DB::transaction(function () use ($validated, $order, $service) {
+                //update order status
+                $order->update([
+                    'status' => $validated['status']
+                ]);
+
+                //update shipping address
+                $order->shippingAddress()->update([
+                    'address_line' => $validated['address_line'],
+                    'barangay' => $validated['barangay'],
+                    'city' => $validated['city'],
+                    'province' => $validated['province'],
+                    'postal_code' => $validated['postal_code'],
+                ]);
+
+                $order->orderItems()->upsert(
+                    $validated['order_items'],
+                    ['id'],
+                    ['quantity']
+                );
+
+                //update order total_amount based on updated order quantity
+                $order->update([
+                    'total_amount' => $service->computeTotalAmount($order)
+                ]);
+            });
+            return to_route('orders.index')->with('success', 'Successfully updated');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
     }
 
     /**

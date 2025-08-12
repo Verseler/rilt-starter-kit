@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,8 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolePermissionSeeder::class,
-            // CategorySeeder::class,
-            // ProductSeeder::class
+            CategorySeeder::class,
+            ProductSeeder::class
         ]);
 
         //admin account
@@ -31,8 +32,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             OrderSeeder::class,
-            // CategorySeeder::class,
-            // ProductSeeder::class
+            OrderItemSeeder::class
         ]);
     }
 }

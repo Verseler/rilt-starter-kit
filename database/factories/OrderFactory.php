@@ -26,7 +26,7 @@ class OrderFactory extends Factory
             'barangay' => fake()->word(),
             'city' => fake()->city(),
             'province' => fake()->state(),
-            'postal_code' => fake()->postcode(),
+            'postal_code' => fake()->randomNumber(4),
             'user_id' => $user->id,
         ]);
 
