@@ -21,6 +21,11 @@ const navMain = [
         icon: LayoutDashboardIcon,
     },
     {
+        title: "Orders",
+        route: "orders.index",
+        icon: ShoppingCartIcon,
+    },
+    {
         title: "Categories",
         route: "categories.index",
         icon: ListIcon,
@@ -29,11 +34,6 @@ const navMain = [
         title: "Products",
         route: "products.index",
         icon: ShirtIcon,
-    },
-    {
-        title: "Orders",
-        route: "orders.index",
-        icon: ShoppingCartIcon,
     },
     {
         title: "Customers",
