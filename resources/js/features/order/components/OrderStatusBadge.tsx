@@ -9,7 +9,7 @@ import {
     TruckIcon,
 } from "lucide-react";
 
-const badgeStatusVariant = {
+export const badgeStatusVariant = {
     new: {
         style: "text-blue-600 bg-blue-50 border-blue-300",
         icon: BubblesIcon,
@@ -19,7 +19,7 @@ const badgeStatusVariant = {
         icon: RefreshCwIcon,
     },
     shipped: {
-        style: "text-green-600 bg-green-50 border-green-300",
+        style: "text-yellow-600 bg-yellow-50 border-yellow-300",
         icon: TruckIcon,
     },
     delivered: {
