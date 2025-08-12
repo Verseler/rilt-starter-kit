@@ -42,7 +42,7 @@ export default function EditProductPage({
     categories,
     product,
 }: EditProductPageProps) {
-    const { data, setData, post, errors } = useForm<EditProductForm>({
+    const { data, setData, errors } = useForm<EditProductForm>({
         product_id: product?.id,
         name: product?.name || "",
         description: product?.description || "",

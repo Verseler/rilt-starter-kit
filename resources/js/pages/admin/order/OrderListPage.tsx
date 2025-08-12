@@ -16,12 +16,9 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import CategorySearchbox from "@/features/category/components/CategorySearchbox";
 import type { Pagination } from "@/types";
-import { useState } from "react";
-import { Link, router } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import { PaginationControls } from "@/components/PaginationControls";
-import ConfirmDeleteDialog from "@/components/AlertDialog/ConfirmDeleteDialog";
 import { EllipsisVerticalIcon, PencilIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatCurrency, formatDate } from "@/lib/utils";
@@ -29,7 +26,7 @@ import type { Order } from "@/features/order/order.types";
 import OrderStatsCard from "@/features/order/components/OrderStatsCard";
 import OrderStatusTabs from "@/features/order/components/OrderStatusTabs";
 import OrderStatusBadge from "@/features/order/components/OrderStatusBadge";
-import OrderSearchbox from '@/features/order/components/OrderSearchbox';
+import OrderSearchbox from "@/features/order/components/OrderSearchbox";
 
 type OrderListProps = {
     orders: Pagination<Order>;
@@ -46,26 +43,6 @@ export default function OrderListPage({
     processingOrdersCount,
     shippedOrdersCount,
 }: OrderListProps) {
-    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [orderToDelete, setOrderToDelete] = useState<Order | null>(null);
-
-    function openDialog(order: Order) {
-        setDeleteDialogOpen(true);
-        setOrderToDelete(order);
-    }
-
-    function handleDeleteConfirm() {
-        if (orderToDelete) {
-            router.delete(route("orders.destroy", orderToDelete.id), {
-                preserveScroll: true,
-                onSuccess: () => {
-                    setDeleteDialogOpen(false);
-                    setOrderToDelete(null);
-                },
-            });
-        }
-    }
-
     return (
         <AdminLayout>
             <SiteHeader title="Order" />
@@ -92,7 +69,7 @@ export default function OrderListPage({
 
                     <OrderSearchbox />
 
-                    <Table className="border">
+                    <Table>
                         <TableHeader className="bg-neutral-100">
                             <TableRow>
                                 <TableHead>OR Number</TableHead>
@@ -104,10 +81,7 @@ export default function OrderListPage({
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <OrderDataRows
-                                orders={orders.data}
-                                onDelete={openDialog}
-                            />
+                            <OrderDataRows orders={orders.data} />
                         </TableBody>
                     </Table>
 
@@ -118,13 +92,6 @@ export default function OrderListPage({
                         nextPageUrl={orders.next_page_url}
                     />
                 </div>
-
-                <ConfirmDeleteDialog
-                    open={deleteDialogOpen}
-                    title={`Delete ${orderToDelete?.or_number ?? ""}?`}
-                    onCancel={() => setDeleteDialogOpen(false)}
-                    onConfirm={handleDeleteConfirm}
-                />
             </main>
         </AdminLayout>
     );
@@ -132,10 +99,9 @@ export default function OrderListPage({
 
 type OrderDataRowsProps = {
     orders: Order[] | undefined;
-    onDelete: (order: Order) => void;
 };
 
-function OrderDataRows({ orders, onDelete }: OrderDataRowsProps) {
+function OrderDataRows({ orders }: OrderDataRowsProps) {
     if (!orders || orders?.length === 0) {
         return (
             <TableRow>
