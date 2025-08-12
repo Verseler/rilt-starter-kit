@@ -27,7 +27,7 @@ export default function CustomerListPage({ customers }: CustomerListProps) {
                 <div className="p-4 space-y-4 md:p-6">
                     <CustomerSearchbox />
 
-                    <Table className="border">
+                    <Table>
                         <TableHeader className="bg-neutral-100">
                             <TableRow>
                                 <TableHead>Name</TableHead>
