@@ -137,8 +137,12 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Order $order)
     {
-        //
+        Gate::authorize('delete', $order);
+
+        $order->delete();
+
+        return to_route('orders.index')->with('success', "Successfully deleted Order OR#{$order->or_number}");
     }
 }
